@@ -6,9 +6,11 @@
 <input @bind="text" >
 
 <h2>@likesInput</h2>
-
-<button @onclick="TeClick">Te</button>
-<button @onclick="KaffeClick">Kaffe</button>
+<div class="mt-3">
+    <button class="btn btn-primary" @onclick="KaffeClick">Kaffe</button>
+    <button class="btn btn-primary" @onclick="TeClick">Te</button>
+    <img src="https://thispersondoesnotexist.com/" alt="new person" width="100">
+</div>
 
 @code {
     private int updateCount = 0;
@@ -47,6 +49,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        text = "";
+        text = "Kaffe";
     }
 }
