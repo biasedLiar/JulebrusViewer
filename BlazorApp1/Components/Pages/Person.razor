@@ -1,21 +1,21 @@
-﻿@page "/person"
+﻿@page "/person/{personId}"
 
 @using BlazorApp1.Models
 @using ClassLibrary1
 @inject IDataAccess _data
 @inject IConfiguration _config
-@rendermode InteractiveServer
+@attribute [StreamRendering]
 
 <h3>Person @number</h3>
 
-@if (people == null)
+@if (people.Count() == 0)
 {
     <p><em>Loading...</em></p>
 } else {
     @foreach (var p in people)
     {
         <p>
-            @p.navn
+            @p.navn + '@(p.events == null)'
         </p>
     }
 }
@@ -26,8 +26,15 @@
     protected override async Task OnInitializedAsync(){
         
         string sql = "select * from person";
-        //number = await _data.five<PersonModel>();
+        await Task.Delay(2000);
         people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
-        //people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, "SERVER=mysql.stud.ntnu.no;UID=eliaseb_user2;PWD=H5K7da4r;DATABASE=eliaseb_julbrus;");
+        
+        sql = "select person_id, COUNT(*) as stat_count from event_person GROUP BY person_id";
+        //await Task.Delay(2000);
+        var events = await _data.LoadData<PersonCountModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+            
+        sql = "select person_id, COUNT(*) as stat_count from gjett GROUP BY person_id";
+        //await Task.Delay(2000);
+        //var gjett = await _data.LoadData<PersonCountModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
     }
 }

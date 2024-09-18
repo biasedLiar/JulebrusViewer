@@ -3,14 +3,18 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp1.Models;
 
-public class PersonModel
+public class ExpandedPersonModel
 {
     [Required]
     public int Id { get; set; }
     
     [Required]
     public string navn { get; set; }
+
+    [Required]
+    public int event_count { get; set; }
     
-    public List<EventModel>? events { get; set; }
+    [Required]
+    public int gjett_count { get; set; }
 
 }

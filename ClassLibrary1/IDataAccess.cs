@@ -8,5 +8,4 @@ public interface IDataAccess
 
     public Task SaveData<T, U>(string sql, U paramaters, string connectionString);
 
-    public Task<int> five<T>();
 }

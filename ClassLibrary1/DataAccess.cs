@@ -12,12 +12,8 @@ public class DataAccess : IDataAccess
     {
         using (IDbConnection connection = new MySqlConnection(connectionString))
         {
-          
-
-                var rows = await connection.QueryAsync<T>(sql, paramaters);
-                return rows.ToList();
-           
-
+            var rows = await connection.QueryAsync<T>(sql, paramaters);
+            return rows.ToList();
         }
     }
 
@@ -27,35 +23,5 @@ public class DataAccess : IDataAccess
         {
             return connection.ExecuteAsync(sql, paramaters);
         }
-    }
-
-    public async Task<int> five<T>()
-    {
-        using (IDbConnection connection = new MySqlConnection("Server=mysql.stud.ntnu.no;Uid=eliaseb_user2;Pwd=H5K7da4r;Database=eliaseb_julbrus;default command timeout=20;"))
-        {
-            /*
-            try
-            { 
-                var rows = await connection.QueryAsync<T>(sql, paramaters);
-
-                return rows.ToList();
-            } catch (Exception e)
-            {
-                Trace.TraceError(e.Message);
-            }finally
-            {
-
-            }
-
-            return new List<T>();
-            */
-            string sql = "select * from person";
-
-            var rows = await connection.QueryAsync<T>(sql, new {});
-            return rows.Count()+3;
-            
- 
-        }
-        return 8;
     }
 }

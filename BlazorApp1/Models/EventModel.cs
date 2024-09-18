@@ -3,14 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BlazorApp1.Models;
 
-public class PersonModel
+public class EventModel
 {
     [Required]
     public int Id { get; set; }
+
+    public string? Navn { get; set; }
     
     [Required]
-    public string navn { get; set; }
-    
-    public List<EventModel>? events { get; set; }
+    public DateOnly tid { get; set; }
 
 }
