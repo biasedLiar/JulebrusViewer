@@ -49,3 +49,5 @@ C:\Users\elelm\OneDrive\Dokumenter\programmeringHjemme\blazor\BlazorApp1\bin\Deb
 C:\Users\elelm\OneDrive\Dokumenter\programmeringHjemme\blazor\BlazorApp1\bin\Debug\net8.0\ClassLibrary1.pdb
 C:\Users\elelm\OneDrive\Dokumenter\programmeringHjemme\blazor\BlazorApp1\obj\Debug\net8.0\BlazorApp1.csproj.AssemblyReference.cache
 C:\Users\elelm\OneDrive\Dokumenter\programmeringHjemme\blazor\BlazorApp1\obj\Debug\net8.0\BlazorApp1.csproj.Up2Date
+C:\Users\elelm\OneDrive\Dokumenter\programmeringHjemme\blazor\BlazorApp1\bin\Debug\net8.0\package-lock.json
+C:\Users\elelm\OneDrive\Dokumenter\programmeringHjemme\blazor\BlazorApp1\bin\Debug\net8.0\package.json

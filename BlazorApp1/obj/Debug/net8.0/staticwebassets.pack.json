@@ -17,8 +17,36 @@
       "PackagePath": "staticwebassets\\bootstrap\\bootstrap.min.css.map"
     },
     {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\css\\Components\\PersonSummaryBox.css",
+      "PackagePath": "staticwebassets\\css\\Components\\PersonSummaryBox.css"
+    },
+    {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\css\\Components\\PersonSummaryBox.css.map",
+      "PackagePath": "staticwebassets\\css\\Components\\PersonSummaryBox.css.map"
+    },
+    {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\css\\PersonSummaryBox.css",
+      "PackagePath": "staticwebassets\\css\\PersonSummaryBox.css"
+    },
+    {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\css\\PersonSummaryBox.css.map",
+      "PackagePath": "staticwebassets\\css\\PersonSummaryBox.css.map"
+    },
+    {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\css\\app.css.map",
+      "PackagePath": "staticwebassets\\css\\app.css.map"
+    },
+    {
       "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\favicon.png",
       "PackagePath": "staticwebassets\\favicon.png"
+    },
+    {
+      "Id": "C:\\Users\\elelm\\OneDrive\\Dokumenter\\programmeringHjemme\\blazor\\BlazorApp1\\wwwroot\\package-lock.json",
+      "PackagePath": "staticwebassets\\package-lock.json"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.BlazorApp1.Microsoft.AspNetCore.StaticWebAssets.props",

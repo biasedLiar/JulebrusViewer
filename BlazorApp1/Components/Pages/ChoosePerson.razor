@@ -2,6 +2,7 @@
 
 @using BlazorApp1.Models
 @using ClassLibrary1
+@using BlazorApp1.Components.SubComponent
 @inject IDataAccess _data
 @inject IConfiguration _config
 @attribute [StreamRendering]
@@ -17,8 +18,10 @@
         <p>
             @p.navn + events: @p.event_count + gjett: @p.gjett_count
         </p>
+        <PersonSummaryBox class="PersonSummaryBox" personModel="p"></PersonSummaryBox>
     }
 }
+
 
 @code {
     int number;

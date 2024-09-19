@@ -1,0 +1,5 @@
+/BlazorApp1/node_modules/
+/BlazorApp1/wwwroot/node_modules/
+/BlazorApp1/bin/
+/BlazorApp1/obj/
+/BlazorApp1/appsettings.json

@@ -4,10 +4,20 @@
     <ProjectReference Include="..\ClassLibrary1\ClassLibrary1.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\Styling\" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
+
+
+  <Target Name="CompileGlobalSass" BeforeTargets="Compile">
+    <Message Text="Compiling global SCSS files" Importance="high" />
+    <Exec Command="npm run sass -- --style=compressed Styles:wwwroot/css" />
+  </Target>
 
 </Project>
