@@ -10,8 +10,8 @@
 
 @code {
     [Parameter]
-    public ExpandedPersonModel personModel {get; set;}
+    public required ExpandedPersonModel personModel {get; set;}
 
     [Parameter(CaptureUnmatchedValues = true)]
-    public Dictionary<string, object> AdditionalAttributes { get; set; }
+    public required Dictionary<string, object> AdditionalAttributes { get; set; }
 }

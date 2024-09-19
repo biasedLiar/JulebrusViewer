@@ -9,7 +9,7 @@ public class ExpandedPersonModel
     public int Id { get; set; }
     
     [Required]
-    public string navn { get; set; }
+    public required string navn { get; set; }
 
     [Required]
     public int event_count { get; set; }

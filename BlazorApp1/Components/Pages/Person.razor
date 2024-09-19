@@ -2,11 +2,12 @@
 
 @using BlazorApp1.Models
 @using ClassLibrary1
+@using System.ComponentModel.DataAnnotations
 @inject IDataAccess _data
 @inject IConfiguration _config
 @attribute [StreamRendering]
 
-<h3>Person @number</h3>
+<h3>Person</h3>
 
 @if (people.Count() == 0)
 {
@@ -21,17 +22,18 @@
 }
 
 @code {
-    int number;
+    
+    [Required]
     List<PersonModel> people = new List<PersonModel>();
     protected override async Task OnInitializedAsync(){
         
         string sql = "select * from person";
         await Task.Delay(2000);
-        people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+        people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
         
         sql = "select person_id, COUNT(*) as stat_count from event_person GROUP BY person_id";
         //await Task.Delay(2000);
-        var events = await _data.LoadData<PersonCountModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+        var events = await _data.LoadData<PersonCountModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
             
         sql = "select person_id, COUNT(*) as stat_count from gjett GROUP BY person_id";
         //await Task.Delay(2000);

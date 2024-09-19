@@ -9,7 +9,7 @@ public class PersonModel
     public int Id { get; set; }
     
     [Required]
-    public string navn { get; set; }
+    public required string navn { get; set; }
     
     public List<EventModel>? events { get; set; }
 

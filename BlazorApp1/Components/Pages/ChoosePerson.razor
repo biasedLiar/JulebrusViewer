@@ -7,36 +7,38 @@
 @inject IConfiguration _config
 @attribute [StreamRendering]
 
-<h3>Choose Person @number</h3>
+<div class="ChoosePerson">
 
-@if (people.Count() == 0)
-{
-    <p><em>Loading...</em></p>
-} else {
-    <div class="PersonSummaryBoxGallery">
-        @foreach (var p in people)
-        {
-            <a href="http://localhost:5178/kaffe">
-                <PersonSummaryBox class="PersonSummaryBox" personModel="p"></PersonSummaryBox>
-            </a>
-        }
+    <h3>Guessers</h3>
 
-    </div>
-}
+    @if (people.Count() == 0)
+    {
+        <p><em>Loading...</em></p>
+    } else {
+        <div class="ChoosePerson_PersonSummaryBoxGallery">
+            @foreach (var p in people)
+            {
+                <a href="http://localhost:5178/kaffe">
+                    <PersonSummaryBox class="PersonSummaryBox" personModel="p"></PersonSummaryBox>
+                </a>
+            }
+
+        </div>
+    }
+</div>
 
 
 @code {
-    int number;
-    List<ExpandedPersonModel> people = new List<ExpandedPersonModel>();
+
+    private List<ExpandedPersonModel> people = new List<ExpandedPersonModel>();
+
     protected override async Task OnInitializedAsync(){
-        number = 1;
         string sql = "select *, " + 
             "(select COUNT(*) from event_person WHERE event_person.person_id = person.id) as event_count, " + 
             "(select COUNT(*) from gjett WHERE gjett.person_id = person.id) as gjett_count " + 
             "from person";
-        await Task.Delay(2000);
-        people = await _data.LoadData<ExpandedPersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+        await Task.Delay(300);
+        people = await _data.LoadData<ExpandedPersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
             
-        number = 4;
     }
 }

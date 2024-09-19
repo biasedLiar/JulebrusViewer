@@ -13,12 +13,11 @@
 </div>
 
 @code {
-    private int updateCount = 0;
     private string likesInput = "";
 
-    private string _text;
+    private string? _text;
 
-    private string text {
+    private string? text {
         get => _text;
         set{
             _text = value;
@@ -28,7 +27,7 @@
 
     private void TextUpdated()
     {
-        if (text.ToString().ToLower().Contains('t'))
+        if (text?.ToString().ToLower().Contains('t')??true)
         {
             likesInput = $"Tante liker ikke {text}";
         } else
@@ -42,12 +41,6 @@
     }
 
     private void KaffeClick(MouseEventArgs e)
-    {
-        text = "Kaffe";
-    }
-
-
-    protected override async Task OnInitializedAsync()
     {
         text = "Kaffe";
     }

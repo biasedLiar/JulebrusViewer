@@ -1,9 +1,14 @@
-.PersonSummaryBoxGallery{
-    background-color: red;
+.ChoosePerson{
+    background-color: $background-white;
+    margin-top: 1.1rem;
 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+
+    &_PersonSummaryBoxGallery{
     
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
     
+        max-width: 1050px;
+    }
 }
