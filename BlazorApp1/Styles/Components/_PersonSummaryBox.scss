@@ -1,8 +1,32 @@
 .PersonSummaryBox{
-    color: red;
+    color: black;
+    background-color: $main-blue;
+
+    width: 300px;
+    height: 300px;
+    border-radius: 20px;
+
+    margin: 20px;
+
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+
+    transition:0.3s;
+    &:hover{
+        background-color: $highlight-blue;
+        transform: scale(1.05);
+    }
+
+    &_img{
+        border-radius: 50%;
+    }
 
 
     &_events{
-        color: blue;
+
     }
 }

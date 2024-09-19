@@ -13,13 +13,15 @@
 {
     <p><em>Loading...</em></p>
 } else {
-    @foreach (var p in people)
-    {
-        <p>
-            @p.navn + events: @p.event_count + gjett: @p.gjett_count
-        </p>
-        <PersonSummaryBox class="PersonSummaryBox" personModel="p"></PersonSummaryBox>
-    }
+    <div class="PersonSummaryBoxGallery">
+        @foreach (var p in people)
+        {
+            <a href="http://localhost:5178/kaffe">
+                <PersonSummaryBox class="PersonSummaryBox" personModel="p"></PersonSummaryBox>
+            </a>
+        }
+
+    </div>
 }
 
 
