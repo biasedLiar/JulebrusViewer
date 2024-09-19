@@ -1,1 +1,1 @@
-.PersonSummaryBox{color:red}.PersonSummaryBox_events{color:blue}/*# sourceMappingURL=app.css.map */
+.PersonSummaryBox{color:#000;background-color:#229799;width:300px;height:300px;border-radius:20px;margin:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:.3s}.PersonSummaryBox:hover{background-color:#48cfcb;transform:scale(1.05)}.PersonSummaryBox_img{border-radius:50%}.PersonSummaryBoxGallery{background-color:red;display:flex;flex-direction:row;flex-wrap:wrap}/*# sourceMappingURL=app.css.map */
