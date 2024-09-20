@@ -9,7 +9,7 @@
 
 <div class="ChoosePerson">
 
-    <h3>Guessers</h3>
+    <h1 class="ChoosePerson_Header">Guessers</h1>
 
     @if (people.Count() == 0)
     {
@@ -18,9 +18,7 @@
         <div class="ChoosePerson_PersonSummaryBoxGallery">
             @foreach (var p in people)
             {
-                <a href="http://localhost:5178/kaffe">
-                    <PersonSummaryBox class="PersonSummaryBox" personModel="p"></PersonSummaryBox>
-                </a>
+                    <PersonSummaryBox personModel="p" />
             }
 
         </div>
@@ -30,6 +28,7 @@
 
 @code {
 
+    //REmove new layout, remove Choose person background styling
     private List<ExpandedPersonModel> people = new List<ExpandedPersonModel>();
 
     protected override async Task OnInitializedAsync(){
@@ -37,7 +36,7 @@
             "(select COUNT(*) from event_person WHERE event_person.person_id = person.id) as event_count, " + 
             "(select COUNT(*) from gjett WHERE gjett.person_id = person.id) as gjett_count " + 
             "from person";
-        await Task.Delay(300);
+        await Task.Delay(00);
         people = await _data.LoadData<ExpandedPersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
             
     }

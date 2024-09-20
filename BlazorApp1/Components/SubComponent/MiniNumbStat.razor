@@ -1,0 +1,21 @@
+﻿@using BlazorApp1.Models
+<div class="MiniNumbStat" @attributes="AdditionalAttributes">
+
+        <h2 class="MiniNumbStat_number">@number</h2>
+
+        <p class="MiniNumbStat_text">@text</p>
+
+</div>
+
+
+
+@code {
+    [Parameter]
+    public required string text {get; set;}
+    
+    [Parameter]
+    public required int number {get; set;}
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public required Dictionary<string, object> AdditionalAttributes { get; set; }
+}

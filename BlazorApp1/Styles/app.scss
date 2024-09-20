@@ -1,5 +1,10 @@
 @import 'Core/_app-variables.scss';
+
+
+@import 'main-css.scss';
+
+
+
 @import 'Components/_PersonSummaryBox.scss';
-
-
+@import 'Components/_MiniNumbStat.scss';
 @import 'Pages/_ChoosePerson.scss';
