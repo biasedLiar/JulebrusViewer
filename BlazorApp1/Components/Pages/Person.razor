@@ -1,48 +1,48 @@
-﻿@page "/person"
+﻿@page "/person/{startId?}"
 
 @using BlazorApp1.Models
 @using ClassLibrary1
 @using System.ComponentModel.DataAnnotations
 @using BlazorApp1.Components.SubComponent
 @inject IDataAccess _data
+@inject IJSRuntime JSRuntime
 @inject IConfiguration _config
 @attribute [StreamRendering]
 
+
 <h3>Person</h3>
-<Carousel>
-    <CarouselItem Active="true">
-        <Image Src="_content/BlazorBootstrap.Demo.RCL/images/slide-01.png" />
-    </CarouselItem>
-    <CarouselItem>
-        <Image Src="_content/BlazorBootstrap.Demo.RCL/images/slide-02.png" />
-    </CarouselItem>
-    <CarouselItem>
-        <Image Src="_content/BlazorBootstrap.Demo.RCL/images/slide-03.png" />
-    </CarouselItem>
-</Carousel>
+<!-- NOTE: the data-bs- attributes added as per the Bootstrap v5.1 instructions -->
+<div id="TestCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-wrap="true" data-interval="false" >
+	<div class="carousel-inner">
+        @foreach (var id in peopleIds)
+            {
+                
+                <div class="carousel-item @(id == Int32.Parse(startId) ? "active" : "")">
+                    <PersonStats personModel="@expandedPeople.Where(person => person.Id == id).ToList().First()"
+                    avgCorrectModel="@avgCorrectGuesses.Where(person => person.Id == id).ToList().First()"
+                    maxCorrectModel="@maxCorrectGuesses.Where(person => person.Id == id).ToList().First()"
+                    ></PersonStats>
+                </div>
+            }
+	</div>
+	<button class="carousel-control-prev" type="button" data-bs-target="#TestCarousel" data-bs-slide="prev">
+		<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Previous</span>
+	</button>
+	<button class="carousel-control-next" type="button" data-bs-target="#TestCarousel" data-bs-slide="next">
+		<span class="carousel-control-next-icon" aria-hidden="true"></span>
+		<span class="visually-hidden">Next</span>
+	</button>
+</div>
+
 @if (expandedPeople.Count() == 0)
 {
     <p><em>Loading...</em></p>
-} else {
-    @foreach (var id in peopleIds)
-    {
-        <div>
-            <PersonStats personModel="@expandedPeople.Where(person => person.Id == id).ToList().First()"
-            avgCorrectModel="@avgCorrectGuesses.Where(person => person.Id == id).ToList().First()"
-            maxCorrectModel="@maxCorrectGuesses.Where(person => person.Id == id).ToList().First()"
-            ></PersonStats>
-        </div>
-
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-    }
-}
+} 
 
 @code {
+    [Parameter]
+    public string? startId { get; set; }
     
     [Required]
     List<int> peopleIds = new List<int>();
@@ -89,7 +89,7 @@
             .ToList();
 
         maxCorrectGuesses = avg_correct_guesses
-            .Select(g => new NumbStatModel(g.Id, "Avg. Correct Guesses", g.Max_riktige, "Average correct guesses per event"))
+            .Select(g => new NumbStatModel(g.Id, "Max Correct Guesses", g.Max_riktige, "Max correct guesses in 1 event"))
             .ToList();
 
         /*
@@ -97,6 +97,11 @@
             .Select(g => new NumbStatModel(g.Id, "Max Correct Guesses", g.Riktige_gjett, "Max correct guesses in a event"))
             .ToList();
         */
+    }
+
+    protected override void OnParametersSet()
+    {
+        startId = startId ?? "1";
     }
     
 }
