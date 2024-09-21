@@ -1,0 +1,19 @@
+@using BlazorApp1.Models
+<div class="NumbStat"  @attributes="AdditionalAttributes">
+
+        <h2 class="NumbStat_number">@numbStatModel.Number</h2>
+
+        <p class="NumbStat_text">@numbStatModel.Category</p>
+        <p class="NumbStat_text">@numbStatModel.Details</p>
+
+</div>
+
+
+
+@code {
+    [Parameter]
+    public required NumbStatModel numbStatModel {get; set;}
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public required Dictionary<string, object> AdditionalAttributes { get; set; }
+}

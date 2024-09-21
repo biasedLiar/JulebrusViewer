@@ -1,0 +1,45 @@
+﻿@using BlazorApp1.Models
+
+<div class="PersonStats">
+    <div class="PersonStats_tallBox">
+        <img class="PersonStats_tallBox_img" src="https://thispersondoesnotexist.com/" alt="new person" width="100">
+
+        <h3 class="PersonStats_tallBox_name">@personModel.navn</h3>
+        <div class="PersonStats_tallBox_statRow">
+            <MiniNumbStat number="personModel.event_count" text="Events"></MiniNumbStat>
+            <MiniNumbStat number="personModel.gjett_count" text="Guesses"></MiniNumbStat>
+        </div>
+    </div>
+    <div class="PersonStats_detailed">
+        <NumbStat numbStatModel="avgCorrectModel"></NumbStat>
+        <NumbStat numbStatModel="maxCorrectModel"></NumbStat>
+    </div>
+</div>
+
+
+@code {
+    //Average rating
+    //Average correct guesses
+    //Rating variance
+    //Max correct
+
+    //Top 3 sodas
+    //3 worst rated sodas
+    //Top 3 Most correct
+    // 3 most recent competitions
+
+    [Parameter]
+    public required ExpandedPersonModel personModel {get; set;}
+
+    [Parameter]
+    public required NumbStatModel avgCorrectModel {get; set;}
+
+    
+    [Parameter]
+    public required NumbStatModel maxCorrectModel {get; set;}
+
+    
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public required Dictionary<string, object> AdditionalAttributes { get; set; }
+}

@@ -1,6 +1,5 @@
 .ChoosePerson{
     background-color: $background-white;
-    padding-top: 1.1rem;
 
 
     &_Header{
@@ -9,6 +8,11 @@
         border-bottom: 3px solid black;
         max-width: 1050px;
         margin: auto;
+        position: sticky;
+        top: 56px;
+        background-color: $background-white;
+        z-index: 1;
+        padding-top: 1.1rem;
     }
 
     &_PersonSummaryBoxGallery{

@@ -14,6 +14,9 @@
     <Watch Include="**\*.scss" />
     <None Update="**\*.css" watch="false" />
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Blazor.Bootstrap" Version="3.0.0" />
+  </ItemGroup>
 
   
   <PropertyGroup>

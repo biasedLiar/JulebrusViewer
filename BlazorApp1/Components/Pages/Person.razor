@@ -1,42 +1,102 @@
-﻿@page "/person/{personId}"
+﻿@page "/person"
 
 @using BlazorApp1.Models
 @using ClassLibrary1
 @using System.ComponentModel.DataAnnotations
+@using BlazorApp1.Components.SubComponent
 @inject IDataAccess _data
 @inject IConfiguration _config
 @attribute [StreamRendering]
 
 <h3>Person</h3>
-
-@if (people.Count() == 0)
+<Carousel>
+    <CarouselItem Active="true">
+        <Image Src="_content/BlazorBootstrap.Demo.RCL/images/slide-01.png" />
+    </CarouselItem>
+    <CarouselItem>
+        <Image Src="_content/BlazorBootstrap.Demo.RCL/images/slide-02.png" />
+    </CarouselItem>
+    <CarouselItem>
+        <Image Src="_content/BlazorBootstrap.Demo.RCL/images/slide-03.png" />
+    </CarouselItem>
+</Carousel>
+@if (expandedPeople.Count() == 0)
 {
     <p><em>Loading...</em></p>
 } else {
-    @foreach (var p in people)
+    @foreach (var id in peopleIds)
     {
-        <p>
-            @p.navn + '@(p.events == null)'
-        </p>
+        <div>
+            <PersonStats personModel="@expandedPeople.Where(person => person.Id == id).ToList().First()"
+            avgCorrectModel="@avgCorrectGuesses.Where(person => person.Id == id).ToList().First()"
+            maxCorrectModel="@maxCorrectGuesses.Where(person => person.Id == id).ToList().First()"
+            ></PersonStats>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
     }
 }
 
 @code {
     
     [Required]
-    List<PersonModel> people = new List<PersonModel>();
+    List<int> peopleIds = new List<int>();
+    
+    [Required]
+    List<ExpandedPersonModel> expandedPeople = new List<ExpandedPersonModel>();
+        
+    [Required]
+    List<PersonAvgCorrectGuessModel> avg_correct_guesses = new List<PersonAvgCorrectGuessModel>();
+        
+    [Required]
+    List<NumbStatModel> avgCorrectGuesses = new List<NumbStatModel>();
+
+    [Required]
+    List<NumbStatModel> maxCorrectGuesses = new List<NumbStatModel>();
+
+    
+
+    [Required]
+    List<PersonModel> people2 = new List<PersonModel>();
     protected override async Task OnInitializedAsync(){
+        // Expanded Info
+        string sql = "select *, " + 
+            "(select COUNT(*) from event_person WHERE event_person.person_id = person.id) as event_count, " + 
+            "(select COUNT(*) from gjett WHERE gjett.person_id = person.id) as gjett_count " + 
+            "from person";
+        expandedPeople = await _data.LoadData<ExpandedPersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
+
+        //Ids
+        peopleIds = expandedPeople.Select(person => person.Id).ToList();
         
-        string sql = "select * from person";
-        await Task.Delay(2000);
-        people = await _data.LoadData<PersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
-        
-        sql = "select person_id, COUNT(*) as stat_count from event_person GROUP BY person_id";
-        //await Task.Delay(2000);
-        var events = await _data.LoadData<PersonCountModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
-            
-        sql = "select person_id, COUNT(*) as stat_count from gjett GROUP BY person_id";
-        //await Task.Delay(2000);
-        //var gjett = await _data.LoadData<PersonCountModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+        //Riktige gjett
+        string new_sql = "SELECT ROUND(AVG(gjett_count), 2) AS riktige_gjett, " +
+                        "MAX(gjett_count) as max_riktige, riktig_gjett.person_id AS Id " +
+                        "FROM ( " +
+                            "SELECT COUNT(*) AS gjett_count, gjett.person_id as person_id, gjett.event_id as event_id " +
+                            "FROM gjett WHERE gjett.brus_id = gjett.gjett " +
+                            "GROUP BY gjett.person_id, gjett.event_id" +
+                        ") as riktig_gjett " +
+                        "GROUP BY person_id";
+        List<PersonAvgCorrectGuessModel> avg_correct_guesses = await _data.LoadData<PersonAvgCorrectGuessModel, dynamic>(new_sql, new { }, _config.GetConnectionString("default")!);
+        avgCorrectGuesses = avg_correct_guesses
+            .Select(g => new NumbStatModel(g.Id, "Avg. Correct Guesses", g.Riktige_gjett, "Average correct guesses per event"))
+            .ToList();
+
+        maxCorrectGuesses = avg_correct_guesses
+            .Select(g => new NumbStatModel(g.Id, "Avg. Correct Guesses", g.Max_riktige, "Average correct guesses per event"))
+            .ToList();
+
+        /*
+        maxCorrectGuesses = avg_correct_guesses
+            .Select(g => new NumbStatModel(g.Id, "Max Correct Guesses", g.Riktige_gjett, "Max correct guesses in a event"))
+            .ToList();
+        */
     }
+    
 }
