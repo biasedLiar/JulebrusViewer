@@ -9,16 +9,13 @@
 @inject IConfiguration _config
 @attribute [StreamRendering]
 
-
-<h3>Person</h3>
 <!-- NOTE: the data-bs- attributes added as per the Bootstrap v5.1 instructions -->
 <div id="TestCarousel" class="carousel slide" data-bs-ride="false" data-bs-wrap="true" data-bs-interval="false" >
 	<div class="carousel-inner">
         @foreach (var id in peopleIds)
             {
                 
-                <div class="carousel-item @(id == Int32.Parse(startId) ? "active" : "")">
-                    <p>@avgRatings.Where(person => person.Id == id).ToList().First().Number</p>
+                <div class="carousel-item @(id == Int32.Parse(startId!) ? "active" : "")">
                     <PersonStats personModel="@expandedPeople.Where(person => person.Id == id).ToList().First()"
                     avgCorrectModel="@avgCorrectGuesses.Where(person => person.Id == id).ToList().First()"
                     maxCorrectModel="@maxCorrectGuesses.Where(person => person.Id == id).ToList().First()"

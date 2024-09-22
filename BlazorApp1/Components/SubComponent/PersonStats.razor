@@ -2,17 +2,29 @@
 
 <div class="PersonStats">
     <div class="PersonStats_tallBox">
-        <img class="PersonStats_tallBox_img" src="https://thispersondoesnotexist.com/" alt="new person" width="100">
+        <div class="PersonStats_tallBox_container">
+            <img class="PersonStats_tallBox_img" src="https://thispersondoesnotexist.com/" alt="new person" width="100">
 
-        <h3 class="PersonStats_tallBox_name">@personModel.navn</h3>
-        <div class="PersonStats_tallBox_statRow">
-            <MiniNumbStat number="personModel.event_count" text="Events"></MiniNumbStat>
-            <MiniNumbStat number="personModel.gjett_count" text="Guesses"></MiniNumbStat>
+            <h3 class="PersonStats_tallBox_name">@personModel.navn</h3>
+            <div class="PersonStats_tallBox_statRow">
+                <MiniNumbStat number="personModel.event_count" text="Events"></MiniNumbStat>
+                <MiniNumbStat number="personModel.gjett_count" text="Guesses"></MiniNumbStat>
+            </div>
         </div>
     </div>
     <div class="PersonStats_detailed">
         <NumbStat numbStatModel="avgCorrectModel"></NumbStat>
         <NumbStat numbStatModel="maxCorrectModel"></NumbStat>
+        <NumbStat numbStatModel="avgRating"></NumbStat>
+        <NumbStat numbStatModel="ratingVariance"></NumbStat>
+        <NumbStat numbStatModel="avgRating"></NumbStat>
+        <NumbStat numbStatModel="ratingVariance"></NumbStat>
+        <NumbStat numbStatModel="avgRating"></NumbStat>
+        <NumbStat numbStatModel="ratingVariance"></NumbStat>
+        <NumbStat numbStatModel="avgRating"></NumbStat>
+        <NumbStat numbStatModel="ratingVariance"></NumbStat>
+        <NumbStat numbStatModel="avgRating"></NumbStat>
+        <NumbStat numbStatModel="ratingVariance"></NumbStat>
         <NumbStat numbStatModel="avgRating"></NumbStat>
         <NumbStat numbStatModel="ratingVariance"></NumbStat>
     </div>

@@ -1,0 +1,13 @@
+﻿@using BlazorApp1.Models
+
+<h1 class="BigFixedHeader">@text</h1>
+
+
+
+@code {
+    [Parameter]
+    public required string text {get; set;}
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public required Dictionary<string, object> AdditionalAttributes { get; set; }
+}
