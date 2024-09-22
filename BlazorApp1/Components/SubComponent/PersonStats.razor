@@ -13,6 +13,8 @@
     <div class="PersonStats_detailed">
         <NumbStat numbStatModel="avgCorrectModel"></NumbStat>
         <NumbStat numbStatModel="maxCorrectModel"></NumbStat>
+        <NumbStat numbStatModel="avgRating"></NumbStat>
+        <NumbStat numbStatModel="ratingVariance"></NumbStat>
     </div>
 </div>
 
@@ -37,6 +39,13 @@
     
     [Parameter]
     public required NumbStatModel maxCorrectModel {get; set;}
+
+    [Parameter]
+    public required NumbStatModel avgRating {get; set;}
+
+    
+    [Parameter]
+    public required NumbStatModel ratingVariance {get; set;}
 
     
 

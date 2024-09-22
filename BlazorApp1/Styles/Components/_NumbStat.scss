@@ -1,19 +1,39 @@
 .NumbStat{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    background-color: red;
+    align-items: start;
+    background-color: $background-white;
+    margin: 20px;
+    padding: 10px 0px;
+    max-width: 250px;
+    max-height:120px;
 
-    &_number{
-        font-family: BigHeader;
-        font-size: 80px;
+    &_title{
         margin-bottom: 0;
-        max-height: 80px;
+        font-size: 20px;
+        font-family: BigHeader;
         font-weight: bold;
-
     }
+    &_row{
+        display: flex;
+        flex-direction: row;
+        align-items: end;
 
-    &_text{
-        font-size: 15px;
+        &_number{
+            font-family: BigHeader;
+            font-size: 60px;
+            margin-bottom: 0;
+            max-height: 60px;
+            font-weight: bold;
+    
+        }
+    
+        &_text{
+            font-size: 12px;
+            margin-bottom: 0px;
+            color: $dark-grey;
+            line-height: 100%;
+            margin-left: 4px;
+        }
     }
 }

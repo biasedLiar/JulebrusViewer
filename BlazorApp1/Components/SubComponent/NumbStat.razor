@@ -1,10 +1,10 @@
 @using BlazorApp1.Models
 <div class="NumbStat"  @attributes="AdditionalAttributes">
-
-        <h2 class="NumbStat_number">@numbStatModel.Number</h2>
-
-        <p class="NumbStat_text">@numbStatModel.Category</p>
-        <p class="NumbStat_text">@numbStatModel.Details</p>
+        <p class="NumbStat_title">@numbStatModel.Category</p>
+        <div class="NumbStat_row">
+            <h2 class="NumbStat_row_number">@numbStatModel.Number</h2>
+            <p class="NumbStat_row_text">@numbStatModel.Details</p>
+        </div>
 
 </div>
 
