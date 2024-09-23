@@ -18,6 +18,12 @@ a, .btn-link {
 
 .content {
     background-color: $background-white;
+    min-height: 90%;
+}
+
+main {
+    background-color: $background-white;
+    min-height: 100%;
 }
 
 h1:focus {

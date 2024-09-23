@@ -5,8 +5,9 @@
     flex-direction: row;
     align-items:stretch;
     margin: auto;
-    border: 1px solid black;
     height: 100%;
+
+    overflow: visible;
 
     &_tallBox{
 
@@ -19,8 +20,10 @@
         padding: 20px;
         padding-top: 50px;
 
+        height: 90vh;
+
         position: sticky;
-        top: 0px;
+        top: 56px;
             
 
         

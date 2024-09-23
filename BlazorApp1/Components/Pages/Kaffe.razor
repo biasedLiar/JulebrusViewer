@@ -1,47 +1,114 @@
-﻿@page "/kaffe"
-@rendermode InteractiveServer
+﻿@page "/kaffe/{startId2?}"
 
-<h1>Tante liker kaffe men ikke te</h1>
+@using BlazorApp1.Models
+@using ClassLibrary1
+@using System.ComponentModel.DataAnnotations
+@using BlazorApp1.Components.SubComponent
+@inject IDataAccess _data
+@inject IJSRuntime JSRuntime
+@inject IConfiguration _config
+@attribute [StreamRendering]
 
-<input @bind="text" >
 
-<h2>@likesInput</h2>
-<div class="mt-3">
-    <button class="btn btn-primary" @onclick="KaffeClick">Kaffe</button>
-    <button class="btn btn-primary" @onclick="TeClick">Te</button>
-    <img src="https://thispersondoesnotexist.com/" alt="new person" width="100">
-</div>
+
+
+@if (expandedPeople.Count() == 0)
+{
+    <p><em>Loading...</em></p>
+} else{
+    <PersonStats personModel="@expandedPeople.Where(person => person.Id == Int32.Parse(startId2!)).ToList().First()"
+    avgCorrectModel="@avgCorrectGuesses.Where(person => person.Id == Int32.Parse(startId2!)).ToList().First()"
+    maxCorrectModel="@maxCorrectGuesses.Where(person => person.Id == Int32.Parse(startId2!)).ToList().First()"
+    avgRating="@avgRatings.Where(person => person.Id == Int32.Parse(startId2!)).ToList().First()"
+    ratingVariance="@ratingVariances.Where(person => person.Id == Int32.Parse(startId2!)).ToList().First()"
+    ></PersonStats>
+
+}
 
 @code {
-    private string likesInput = "";
+    [Parameter]
+    public string? startId2 { get; set; }
+    
+    [Required]
+    List<int> peopleIds = new List<int>();
+    
+    [Required]
+    List<ExpandedPersonModel> expandedPeople = new List<ExpandedPersonModel>();
+        
+    [Required]
+    List<PersonAvgCorrectGuessModel> avg_correct_guesses = new List<PersonAvgCorrectGuessModel>();
+        
+    [Required]
+    List<NumbStatModel> avgCorrectGuesses = new List<NumbStatModel>();
 
-    private string? _text;
+    [Required]
+    List<NumbStatModel> maxCorrectGuesses = new List<NumbStatModel>();
 
-    private string? text {
-        get => _text;
-        set{
-            _text = value;
-            TextUpdated();
-        }
+    
+    [Required]
+    List<NumbStatModel> avgRatings = new List<NumbStatModel>();
+
+    
+    [Required]
+    List<NumbStatModel> ratingVariances = new List<NumbStatModel>();
+
+    
+
+    [Required]
+    List<PersonModel> people2 = new List<PersonModel>();
+    protected override async Task OnInitializedAsync(){
+        // Expanded Info
+        string sql = "select *, " + 
+                    "(select COUNT(*) from event_person WHERE event_person.person_id = person.id) as event_count, " + 
+                    "(select COUNT(*) from gjett WHERE gjett.person_id = person.id) as gjett_count " + 
+                    "from person";
+        expandedPeople = await _data.LoadData<ExpandedPersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
+
+        //Ids
+        peopleIds = expandedPeople.Select(person => person.Id).ToList();
+        
+        //Correct guesses
+        string sql2 =   "SELECT ROUND(AVG(gjett_count), 1) AS riktige_gjett, " +
+                        "MAX(gjett_count) as max_riktige, " + 
+                        "riktig_gjett.person_id AS Id " +
+                        "FROM ( " +
+                            "SELECT COUNT(*) AS gjett_count, gjett.person_id as person_id, gjett.event_id as event_id " +
+                            "FROM gjett WHERE gjett.brus_id = gjett.gjett " +
+                            "GROUP BY gjett.person_id, gjett.event_id" +
+                        ") as riktig_gjett " +
+                        "GROUP BY person_id";
+        List<PersonAvgCorrectGuessModel> avgCorrectGuessesModel = await _data.LoadData<PersonAvgCorrectGuessModel, dynamic>(sql2, new { }, _config.GetConnectionString("default")!);
+        avgCorrectGuesses = avgCorrectGuessesModel
+            .Select(g => new NumbStatModel(g.Id, "Avg Correct", g.Riktige_gjett, "Average correct guesses per event"))
+            .ToList();
+
+        maxCorrectGuesses = avgCorrectGuessesModel
+            .Select(g => new NumbStatModel(g.Id, "Max Correct", g.Max_riktige, "Max correct guesses in a single event"))
+            .ToList();
+
+
+        //Ratings:
+        string sql3 = "SELECT person_id AS Id, ROUND(VARIANCE(rating), 1) AS Variance, ROUND(AVG(rating), 1) AS Avg_rating " + 
+                        "FROM `gjett` GROUP BY person_id";
+        List<PersonAvgRatingModel> avgRatingModel = await _data.LoadData<PersonAvgRatingModel, dynamic>(sql3, new { }, _config.GetConnectionString("default")!);
+        avgRatings = avgRatingModel
+            .Select(g => new NumbStatModel(g.Id, "Avg Ratings", g.Avg_rating, "Average soda rating"))
+            .ToList();
+
+        ratingVariances = avgRatingModel
+            .Select(g => new NumbStatModel(g.Id, "Rating Variance", g.Variance, "Variance of soda ratings"))
+            .ToList();
+        /*
+        maxCorrectGuesses = avg_correct_guesses
+            .Select(g => new NumbStatModel(g.Id, "Max Correct Guesses", g.Riktige_gjett, "Max correct guesses in a event"))
+            .ToList();
+        */
     }
+    
 
-    private void TextUpdated()
+    protected override void OnParametersSet()
     {
-        if (text?.ToString().ToLower().Contains('t')??true)
-        {
-            likesInput = $"Tante liker ikke {text}";
-        } else
-        {
-            likesInput = $"Tante liker {text}.";
-        }
+        startId2 = startId2 ?? "1";
     }
-    private void TeClick(MouseEventArgs e)
-    {
-        text = "Te";
-    }
-
-    private void KaffeClick(MouseEventArgs e)
-    {
-        text = "Kaffe";
-    }
+    
 }

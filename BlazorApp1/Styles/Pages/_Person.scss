@@ -1,3 +1,10 @@
+#PersonCarouselInner{
+    overflow: visible;
+}
+
+article:has(#PersonCarousel){
+    //padding: 0 !important;
+}
 .ChoosePerson{
     
 }
