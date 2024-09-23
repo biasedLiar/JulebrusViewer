@@ -1,5 +1,24 @@
 #PersonCarouselInner{
     overflow: visible;
+
+}
+
+#PersonCarousel .carousel-control-pushed{
+    width: 34px;
+    height: 68px;
+    position: fixed;
+    bottom: auto;
+}
+#PersonCarousel .carousel-control-next{
+    top: 40vh;
+    justify-content: flex-end;
+    right: 22px;
+}
+
+#PersonCarousel .carousel-control-prev{
+    top: 40vh;
+    justify-content: flex-start;
+    left: 250px;
 }
 
 article:has(#PersonCarousel){
