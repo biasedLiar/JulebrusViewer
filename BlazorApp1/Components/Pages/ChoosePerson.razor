@@ -37,6 +37,10 @@
             "from person";
         await Task.Delay(00);
         people = await _data.LoadData<ExpandedPersonModel, dynamic>(sql, new { }, _config.GetConnectionString("default")!);
+        people.ForEach(p => {
+            p.img = p.img??"https://thispersondoesnotexist.com/"; 
+            p.img = (p.img==""?"https://thispersondoesnotexist.com/":p.img);
+        });
             
     }
 }

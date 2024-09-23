@@ -17,4 +17,8 @@ public class ExpandedPersonModel
     [Required]
     public int gjett_count { get; set; }
 
+    
+    [Required]
+    public string? img { get; set; }
+
 }
